@@ -50,10 +50,8 @@ class Writer( out: OutputStream, options: Symbol* ) {
       writeb( len )
     else if (len <= Short.MaxValue)
       writes( len )
-    else if (len <= Int.MaxValue)
-      writen( len )
     else
-      writel( len )   // can't happen: JVM arrays are limited to Int.MaxValue elements
+      writen( len )
 
     dout write bytes
   }
@@ -109,6 +107,10 @@ class Writer( out: OutputStream, options: Symbol* ) {
       case m: collection.Map[_, _] => write( m.asInstanceOf[collection.Map[String, Any]] )
     }
 
+  protected def close =
+    if (!(options contains 'dontclose))
+      dout close
+
   def write( m: collection.Map[String, Any] ): Unit = {
     marker( '{' )
 
@@ -118,12 +120,14 @@ class Writer( out: OutputStream, options: Symbol* ) {
     }
 
     marker( '}' )
+    close
   }
 
   def write( l: Seq[Any] ): Unit = {
     marker( '[' )
     l foreach write
     marker( ']' )
+    close
   }
 
 }

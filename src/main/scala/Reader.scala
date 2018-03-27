@@ -58,7 +58,12 @@ class Reader( in: InputStream, options: Symbol* ) {
             case ']' => buf.toVector
             case b =>
               pin.unread( b )
-              buf += read
+
+              read match {
+                case NOOP =>
+                case e => buf += e
+              }
+
               readArray
           }
 
