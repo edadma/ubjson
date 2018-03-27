@@ -54,6 +54,8 @@ class Writer( out: OutputStream, options: Symbol* ) {
       writen( len )
     else
       writel( len )   // can't happen: JVM arrays are limited to Int.MaxValue elements
+
+    dout write bytes
   }
 
   protected def writeh( s: String ): Unit = {
@@ -66,7 +68,7 @@ class Writer( out: OutputStream, options: Symbol* ) {
     dout writeLong l
   }
 
-  protected def write( data: Any ) =
+  protected def write( data: Any ): Unit =
     data match {
       case null => marker( 'Z' )
       case NOOP => marker( 'N' )
@@ -103,6 +105,8 @@ class Writer( out: OutputStream, options: Symbol* ) {
       case s: String =>
         marker( 'S' )
         writeutf( s )
+      case s: Seq[_] => write( s.asInstanceOf[Seq[Any]] )
+      case m: collection.Map[_, _] => write( m.asInstanceOf[collection.Map[String, Any]] )
     }
 
   def write( m: collection.Map[String, Any] ): Unit = {
