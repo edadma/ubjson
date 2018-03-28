@@ -9,9 +9,7 @@ class Tests extends FreeSpec with PropertyChecks with Matchers {
 	"basic" in {
 		val obj = Map( "a" -> "asdf", "b" -> 123, "c" -> List(true, false, null, "c", "\u03B1", -5, 200, 300, 67000, 3000000000L, BigInt("10000000000000000000"), BigDecimal("0.1234567890123456789"), Map("d" -> 34.5, "e" -> 67.8F)) )
 
-		val data = writeUBJSON( obj )
-
-    readUBJSON( data ) shouldBe obj
+    readUBJSON( writeUBJSON(obj) ) shouldBe obj
 	}
 
 	"noop" in {
