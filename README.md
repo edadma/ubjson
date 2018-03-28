@@ -1,5 +1,5 @@
 ubjson [![Build Status](https://www.travis-ci.org/edadma/ubjson.svg?branch=master)](https://www.travis-ci.org/edadma/ubjson)
-[![Version](https://img.shields.io/badge/sbt-v0.2-orange.svg)](https://www.scala-sbt.org/)
+[![Version](https://img.shields.io/badge/sbt-v0.2.1-orange.svg)](https://www.scala-sbt.org/)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 ======
 
@@ -43,14 +43,14 @@ Use the following definition to use *ubjson* in your Maven project:
 	<dependency>
 	  <groupId>xyz.hyperreal</groupId>
 	  <artifactId>ubjson</artifactId>
-	  <version>0.2</version>
+	  <version>0.2.1</version>
 	</dependency>
 
 Add the following to your `build.sbt` file to use *ubjson* in your SBT project:
 
 	resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
-	libraryDependencies += "xyz.hyperreal" %% "ubjson" % "0.2"
+	libraryDependencies += "xyz.hyperreal" %% "ubjson" % "0.2.1"
 
 
 Building
