@@ -1,4 +1,4 @@
-ubjson
+ubjson [![Build Status](https://www.travis-ci.org/edadma/ubjson.svg?branch=master)](https://www.travis-ci.org/edadma/ubjson)
 ======
 
 *ubjson* is an implementation of the [Universal Binary JSON](http://ubjson.org/) (UBJSON) computer data interchange format for the [Scala](http://scala-lang.org) programming language.
