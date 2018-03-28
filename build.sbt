@@ -27,7 +27,7 @@ mainClass in assembly := Some( "xyz.hyperreal." + name.value.replace('-', '_') +
 
 assemblyJarName in assembly := name.value + "-" + version.value + ".jar"
 
-coverageEnabled := true
+//coverageEnabled := true
 
 publishMavenStyle := true
 
