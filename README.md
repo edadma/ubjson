@@ -1,6 +1,6 @@
 ubjson [![Build Status](https://www.travis-ci.org/edadma/ubjson.svg?branch=master)](https://www.travis-ci.org/edadma/ubjson)
-[![Version](https://img.shields.io/badge/latest_release-v0.2.1-orange.svg)](https://www.scala-sbt.org/)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![Version](https://img.shields.io/badge/latest_release-v0.2.1-orange.svg)](https://www.scala-sbt.org/)
 ======
 
 *ubjson* is an implementation of the [Universal Binary JSON](http://ubjson.org/) (UBJSON) computer data interchange format for the [Scala](http://scala-lang.org) programming language.
