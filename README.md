@@ -1,7 +1,7 @@
 ubjson
 ======
 
-*ubjson* is an implementation of the (Universal Binary JSON (UBJSON))[http://ubjson.org/] computer data interchange format for the [Scala](http://scala-lang.org) programming language.
+*ubjson* is an implementation of the [Universal Binary JSON (UBJSON)](http://ubjson.org/) computer data interchange format for the [Scala](http://scala-lang.org) programming language.
 
 
 Example
