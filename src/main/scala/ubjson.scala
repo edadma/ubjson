@@ -8,7 +8,7 @@ package object ubjson {
 
   case object NOOP
 
-  def writeUBJSON( obj: Any, longs: Boolean = false ) = {
+  def writeUBJSON( obj: Any, longOpt: Boolean = false, bigIntOpt: Boolean = false ) = {
     val buf = new ArrayBuffer[Byte]
 
     def writeb( b: Int ) = buf += b.toByte
@@ -44,7 +44,6 @@ package object ubjson {
     }
 
     def writechar( c: Char ): Unit = {
-      require( c <= Byte.MaxValue, s"character is not single byte UTF8: $c" )
       writeb( 'C' )
       writeb( c )
     }
@@ -78,6 +77,11 @@ package object ubjson {
       writeLong( n )
     }
 
+    def writes( s: String ): Unit = {
+      writeb( 'S' )
+      writeString( s )
+    }
+
     def write( data: Any ): Unit =
       data match {
         case null => writeb( 'Z' )
@@ -86,22 +90,22 @@ package object ubjson {
         case false => writeb( 'F' )
         case b: Byte => write8( b )
         case s: Short if s.isValidByte => write8( s )
-        case s: Short if 0 <= s && s <= 255 => writeu8( s )
+        case s: Short if 128 <= s && s <= 255 => writeu8( s )
         case s: Short => write16( s )
         case n: Int if n.isValidByte => write8( n )
-        case n: Int if 0 <= n && n <= 255 => writeu8( n )
+        case n: Int if 128 <= n && n <= 255 => writeu8( n )
         case n: Int if n.isValidShort => write16( n )
         case n: Int => write32( n )
-        case l: Long if longs && l.isValidByte => write8( l.toInt )
-        case l: Long if longs && 0 <= l && l <= 255 => writeu8( l.toInt )
-        case l: Long if longs && l.isValidShort => write16( l.toInt )
-        case l: Long if longs && l.isValidInt => write32( l.toInt )
+        case l: Long if !longOpt && l.isValidByte => write8( l.toInt )
+        case l: Long if !longOpt && 128 <= l && l <= 255 => writeu8( l.toInt )
+        case l: Long if !longOpt && l.isValidShort => write16( l.toInt )
+        case l: Long if !longOpt && l.isValidInt => write32( l.toInt )
         case l: Long => write64( l )
-        case bi: BigInt if bi.isValidByte => write8( bi.toInt )
-        case bi: BigInt if 0 <= bi && bi <= 255 => writeu8( bi.toInt )
-        case bi: BigInt if bi.isValidShort => write16( bi.toInt )
-        case bi: BigInt if bi.isValidInt => write32( bi.toInt )
-        case bi: BigInt if bi.isValidLong => write64( bi.toInt )
+        case bi: BigInt if !bigIntOpt && bi.isValidByte => write8( bi.toInt )
+        case bi: BigInt if !bigIntOpt && 128 <= bi && bi <= 255 => writeu8( bi.toInt )
+        case bi: BigInt if !bigIntOpt && bi.isValidShort => write16( bi.toInt )
+        case bi: BigInt if !bigIntOpt && bi.isValidInt => write32( bi.toInt )
+        case bi: BigInt if !bigIntOpt && !longOpt && bi.isValidLong => write64( bi.toLong )
         case bi: BigInt => writehuge( bi.toString )
         case bd: BigDecimal => writehuge( bd.toString )
         case f: Float =>
@@ -110,11 +114,10 @@ package object ubjson {
         case d: Double =>
           writeb( 'D' )
           writeLong( java.lang.Double.doubleToLongBits(d) )
-        case c: Char => writechar( c )
-        case s: String if s.length == 1 => writechar( s.head )
-        case s: String =>
-          writeb( 'S' )
-          writeString( s )
+        case c: Char if c <= Byte.MaxValue => writechar( c )
+        case c: Char => writes( c.toString )
+        case s: String if s.length == 1 && s.head <= Byte.MaxValue => writechar( s.head )
+        case s: String => writes( s )
         case s: Seq[_] =>
           writeb( '[' )
           s foreach write
@@ -134,7 +137,7 @@ package object ubjson {
     buf.toArray
   }
 
-  def readUBJSON( data: Array[Byte], chars: Boolean = false ) = {
+  def readUBJSON( data: Array[Byte], charOpt: Boolean = false ) = {
     var index = 0
 
     def peek =
@@ -158,7 +161,7 @@ package object ubjson {
 
     def readInt = readShort << 16 | (readShort&0xFFFF)
 
-    def readLong = readInt.toLong << 32 | (readInt&0xFFFFFFFF)
+    def readLong = readInt.toLong << 32 | (readInt&0xFFFFFFFFL)
 
     def readString: String = {
       val buf = new Array[Byte]( read.asInstanceOf[Number].intValue )
@@ -192,7 +195,7 @@ package object ubjson {
         case 'C' =>
           val c = readb.toChar
 
-          if (chars)
+          if (charOpt)
             c
           else
             c.toString
