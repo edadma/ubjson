@@ -7,16 +7,16 @@ ubjson [![Build Status](https://www.travis-ci.org/edadma/ubjson.svg?branch=maste
 Example
 -------
 
-The following example program shows how to use the convenience functions to `write` a Scala `Map` object to a UBJSON byte array, and then `read` that array back to create an equivalent `Map`.
+The following example program shows how to use the convenience functions to write a Scala `Map` object to a UBJSON byte array, and then read that array back to create an equivalent `Map`.
 
     import xyz.hyperreal.ubjson._
 
     object Main extends App {
 
-      val ubjson = write( Map("a" -> "asdf", "b" -> 5) )
+      val ubjson = writeUBJSON( Map("a" -> "asdf", "b" -> 5) )
 
       println( ubjson.toList map (b => if (b < ' ') b.toString else b.toChar) mkString " " )
-      println( read(ubjson) )
+      println( readUBJSON(ubjson) )
 
     }
 
@@ -41,14 +41,14 @@ Use the following definition to use *ubjson* in your Maven project:
 	<dependency>
 	  <groupId>xyz.hyperreal</groupId>
 	  <artifactId>ubjson</artifactId>
-	  <version>0.1</version>
+	  <version>0.2</version>
 	</dependency>
 
 Add the following to your `build.sbt` file to use *ubjson* in your SBT project:
 
 	resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
-	libraryDependencies += "xyz.hyperreal" %% "ubjson" % "0.1"
+	libraryDependencies += "xyz.hyperreal" %% "ubjson" % "0.2"
 
 
 Building
