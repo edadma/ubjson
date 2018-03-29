@@ -38,10 +38,10 @@ class Tests extends FreeSpec with PropertyChecks with Matchers {
 		readUBJSON( writeUBJSON(200L) ) shouldBe 200
 		readUBJSON( writeUBJSON(300L) ) shouldBe 300
 		readUBJSON( writeUBJSON(67000L) ) shouldBe 67000
-		readUBJSON( writeUBJSON(5L, longOpt = true) ) shouldBe 5L	// todo: test doesn't actually check the type for Long
-		readUBJSON( writeUBJSON(200L, longOpt = true) ) shouldBe 200L
-		readUBJSON( writeUBJSON(300L, longOpt = true) ) shouldBe 300L
-		readUBJSON( writeUBJSON(67000L, longOpt = true) ) shouldBe 67000L
+		readUBJSON( writeUBJSON(5L, longOpt = true) ) should (be (5) and be (a [java.lang.Long]))
+		readUBJSON( writeUBJSON(200L, longOpt = true) ) should (be (200) and be (a [java.lang.Long]))
+		readUBJSON( writeUBJSON(300L, longOpt = true) ) should (be (300) and be (a [java.lang.Long]))
+		readUBJSON( writeUBJSON(67000L, longOpt = true) ) should (be (67000) and be (a [java.lang.Long]))
 	}
 
 	"bigint" in {
@@ -50,11 +50,11 @@ class Tests extends FreeSpec with PropertyChecks with Matchers {
 		readUBJSON( writeUBJSON(BigInt(300L)) ) shouldBe 300
 		readUBJSON( writeUBJSON(BigInt(67000L)) ) shouldBe 67000
 		readUBJSON( writeUBJSON(BigInt(3000000000L)) ) shouldBe 3000000000L
-		readUBJSON( writeUBJSON(BigInt(5L), bigIntOpt = true) ) shouldBe BigInt(5L)	// todo: test doesn't actually check the type for BigInt
-		readUBJSON( writeUBJSON(BigInt(200L), bigIntOpt = true) ) shouldBe BigInt(200L)
-		readUBJSON( writeUBJSON(BigInt(300L)) ) shouldBe BigInt(300L)
-		readUBJSON( writeUBJSON(BigInt(67000L)) ) shouldBe BigInt(67000L)
-		readUBJSON( writeUBJSON(BigInt(3000000000L)) ) shouldBe BigInt(3000000000L)
+		readUBJSON( writeUBJSON(BigInt(5L), bigIntOpt = true) ) should (be (5) and be (a [BigInt]))
+		readUBJSON( writeUBJSON(BigInt(200L), bigIntOpt = true) ) should (be (200) and be (a [BigInt]))
+		readUBJSON( writeUBJSON(BigInt(300L), bigIntOpt = true) ) should (be (300) and be (a [BigInt]))
+		readUBJSON( writeUBJSON(BigInt(67000L), bigIntOpt = true) ) should (be (67000) and be (a [BigInt]))
+		readUBJSON( writeUBJSON(BigInt(3000000000L), bigIntOpt = true) ) should (be (3000000000L) and be (a [BigInt]))
 	}
 
 	"string" in {
