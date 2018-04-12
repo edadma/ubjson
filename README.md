@@ -62,7 +62,7 @@ Building
 ### Requirements
 
 - Java 8
-- SBT 1.1.1+
+- SBT 1.1.4+
 - Scala 2.12.5+
 
 ### Clone and Run the Tests
