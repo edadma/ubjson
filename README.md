@@ -14,16 +14,18 @@ Example
 
 The following example program shows how to use the convenience functions to write a Scala `Map` object to a UBJSON byte array, and then read that array back to create an equivalent `Map`.
 
-    import xyz.hyperreal.ubjson._
+```scala
+import xyz.hyperreal.ubjson._
 
-    object Main extends App {
+object Main extends App {
 
-      val ubjson = writeUBJSON( Map("a" -> "asdf", "b" -> 5) )
+  val ubjson = writeUBJSON( Map("a" -> "asdf", "b" -> 5) )
 
-      println( ubjson.toList map (b => if (b < ' ') b.toString else b.toChar) mkString " " )
-      println( readUBJSON(ubjson) )
+  println( ubjson.toList map (b => if (b < ' ') b.toString else b.toChar) mkString " " )
+  println( readUBJSON(ubjson) )
 
-    }
+}
+```
 
 This program prints
 
@@ -38,22 +40,26 @@ Usage
 
 Use the following definition to use *ubjson* in your Maven project:
 
-	<repository>
-	  <id>hyperreal</id>
-	  <url>https://dl.bintray.com/edadma/maven</url>
-	</repository>
+```xml
+<repository>
+  <id>hyperreal</id>
+  <url>https://dl.bintray.com/edadma/maven</url>
+</repository>
 
-	<dependency>
-	  <groupId>xyz.hyperreal</groupId>
-	  <artifactId>ubjson</artifactId>
-	  <version>0.2.2</version>
-	</dependency>
+<dependency>
+  <groupId>xyz.hyperreal</groupId>
+  <artifactId>ubjson</artifactId>
+  <version>0.2.2</version>
+</dependency>
+```
 
 Add the following to your `build.sbt` file to use *ubjson* in your SBT project:
 
-	resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
+```sbt
+resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
-	libraryDependencies += "xyz.hyperreal" %% "ubjson" % "0.2.2"
+libraryDependencies += "xyz.hyperreal" %% "ubjson" % "0.2.2"
+```
 
 
 Building
@@ -67,9 +73,11 @@ Building
 
 ### Clone and Run the Tests
 
-	git clone git://github.com/edadma/ubjson.git
-	cd ubjson
-	sbt test
+```bash
+git clone git://github.com/edadma/ubjson.git
+cd ubjson
+sbt test
+```
 
 
 License
