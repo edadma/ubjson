@@ -2,6 +2,7 @@ ubjson
 ======
 
 [![Build Status](https://www.travis-ci.org/edadma/ubjson.svg?branch=master)](https://www.travis-ci.org/edadma/ubjson)
+[![Build status](https://ci.appveyor.com/api/projects/status/t9jvasndchc0qdaf/branch/master?svg=true)](https://ci.appveyor.com/project/edadma/ubjson/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/edadma/ubjson/badge.svg?branch=master)](https://coveralls.io/github/edadma/ubjson?branch=master)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![Version](https://img.shields.io/badge/latest_release-v0.2.2-orange.svg)](https://www.scala-sbt.org/)
@@ -83,4 +84,4 @@ sbt test
 License
 -------
 
-ISC © 2018 Edward Maxedon
+ISC © 2018 Edward A. Maxedon, Sr.
