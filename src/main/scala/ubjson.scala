@@ -8,7 +8,7 @@ package object ubjson {
 
   case object NOOP
 
-  def writeUBJSON( obj: Any, longOpt: Boolean = false, bigIntOpt: Boolean = false ) = {
+  def writeUBJSON( obj: Any, longOpt: Boolean = false, bigIntOpt: Boolean = false, countOpt: Boolean = true ) = {
     val buf = new ArrayBuffer[Byte]
 
     def writeb( b: Int ) = buf += b.toByte
@@ -82,6 +82,22 @@ package object ubjson {
       writeString( s )
     }
 
+    def writecount( c: Int ): Unit = {
+      writeb( '#' )
+      write( c )
+    }
+
+    def writea( s: Seq[Any] ): Unit = {
+      if (countOpt)
+        writecount( s.length )
+
+      writeb( '[' )
+      s foreach write
+
+      if (!countOpt)
+        writeb( ']' )
+    }
+
     def write( data: Any ): Unit =
       data match {
         case null => writeb( 'Z' )
@@ -118,10 +134,8 @@ package object ubjson {
         case c: Char => writes( c.toString )
         case s: String if s.length == 1 && s.head <= Byte.MaxValue => writechar( s.head )
         case s: String => writes( s )
-        case s: Seq[_] =>
-          writeb( '[' )
-          s foreach write
-          writeb( ']' )
+        case s: Seq[_] => writea( s )
+        case a: Array[_] => writea( a )
         case m: collection.Map[_, _] =>
           writeb( '{' )
 
@@ -172,6 +186,8 @@ package object ubjson {
       new String( io.Codec.fromUTF8(buf) )
     }
 
+    def readint = read.asInstanceOf[Int]
+
     def read: Any =
       readb match {
         case 'Z' => null
@@ -215,8 +231,19 @@ package object ubjson {
                 readArray
             }
 
-          readArray
-          buf.toVector
+          if (peek == '#') {
+            skip
+
+            val array = new Array[Any]( readint )
+
+            for (i <- array.indices)
+              array(i) = read
+
+            array.toVector
+          } else {
+            readArray
+            buf.toVector
+          }
         case '{' =>
           val buf = new ArrayBuffer[(String, Any)]
 

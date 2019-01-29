@@ -1,8 +1,8 @@
 name := "ubjson"
 
-version := "0.2.2"
+version := "0.3"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.8"
 
 //crossScalaVersions := Seq( "2.11.11" )
 
