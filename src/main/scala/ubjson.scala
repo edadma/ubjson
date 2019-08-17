@@ -87,11 +87,12 @@ package object ubjson {
       write( c )
     }
 
-    def writea( s: Seq[Any] ): Unit = {
+    def writea( s: collection.Seq[Any] ): Unit = {
+      writeb( '[' )
+
       if (countOpt)
         writecount( s.length )
 
-      writeb( '[' )
       s foreach write
 
       if (!countOpt)
@@ -186,7 +187,7 @@ package object ubjson {
       new String( io.Codec.fromUTF8(buf) )
     }
 
-    def readint = read.asInstanceOf[Int]
+    def readint = read.asInstanceOf[Number].intValue
 
     def read: Any =
       readb match {

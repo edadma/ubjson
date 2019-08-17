@@ -1,10 +1,8 @@
 name := "ubjson"
 
-version := "0.3"
+version := "0.4"
 
-scalaVersion := "2.12.8"
-
-//crossScalaVersions := Seq( "2.11.11" )
+scalaVersion := "2.13.0"
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-unchecked", "-language:postfixOps", "-language:implicitConversions", "-language:existentials" )
 
@@ -17,8 +15,8 @@ resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/release
 resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
 libraryDependencies ++= Seq(
-	"org.scalatest" %% "scalatest" % "3.0.0" % "test",
-	"org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+	"org.scalatest" %% "scalatest" % "3.0.8" % "test",
+	"org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
 )
 
 mainClass in (Compile, run) := Some( "xyz.hyperreal." + name.value.replace('-', '_') + ".Main" )
