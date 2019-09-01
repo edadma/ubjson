@@ -5,7 +5,7 @@ ubjson
 [![Build status](https://ci.appveyor.com/api/projects/status/t9jvasndchc0qdaf/branch/master?svg=true)](https://ci.appveyor.com/project/edadma/ubjson/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/edadma/ubjson/badge.svg?branch=master)](https://coveralls.io/github/edadma/ubjson?branch=master)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![Version](https://img.shields.io/badge/latest_release-v0.4-orange.svg)](https://www.scala-sbt.org/)
+[![Version](https://img.shields.io/badge/latest_release-v0.3-orange.svg)](https://www.scala-sbt.org/)
 
 *ubjson* is an implementation of the [Universal Binary JSON](http://ubjson.org/) (UBJSON) computer data interchange format for the [Scala](http://scala-lang.org) programming language.
 
@@ -50,7 +50,7 @@ Use the following definition to use *ubjson* in your Maven project:
 <dependency>
   <groupId>xyz.hyperreal</groupId>
   <artifactId>ubjson</artifactId>
-  <version>0.4</version>
+  <version>0.3</version>
 </dependency>
 ```
 
@@ -59,7 +59,7 @@ Add the following to your `build.sbt` file to use *ubjson* in your SBT project:
 ```sbt
 resolvers += "Hyperreal Repository" at "https://dl.bintray.com/edadma/maven"
 
-libraryDependencies += "xyz.hyperreal" %% "ubjson" % "0.4"
+libraryDependencies += "xyz.hyperreal" %% "ubjson" % "0.3"
 ```
 
 
